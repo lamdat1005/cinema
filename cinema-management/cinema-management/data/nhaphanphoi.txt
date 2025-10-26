@@ -1,0 +1,3 @@
+NPP001|CGV Distribution|123 Nguyễn Huệ, Q1, HCM|0901234567|cgv@distribution.vn
+NPP002|Galaxy Film|456 Lê Lợi, Q1, HCM|0907654321|galaxy@film.vn
+NPP003|Lotte Cinema Supply|789 Trần Hưng �?ạo, Q5, HCM|0903456789|lotte@supply.vn

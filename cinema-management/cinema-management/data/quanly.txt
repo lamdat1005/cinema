@@ -1,0 +1,3 @@
+QL001|Cao Nguyen Yen Hoa|0912345678|nva@cgv.vn|Giam doc|R001
+QL002|Lam Han Dat|0987654321|ttb@galaxy.vn|Truong phong|R002
+QL003|Le Van C|0976543210|lvc@lotte.vn|Pho giam doc|R003
