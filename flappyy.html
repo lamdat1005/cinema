@@ -2,7 +2,9 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <title>Flappy Bird (Slow Version)</title>
     <style>
         body {
@@ -16,12 +18,17 @@
             font-family: 'Arial', sans-serif;
             overflow: hidden;
             user-select: none; /* Chống bôi đen văn bản khi click liên tục */
+            touch-action: none; /* Chống scroll/zoom trên mobile */
+            -webkit-tap-highlight-color: transparent; /* Bỏ highlight khi tap */
         }
         canvas {
             border: 2px solid #000;
             background-color: #70c5ce;
             display: block;
             box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            max-width: 100vw;
+            max-height: 100vh;
+            touch-action: none; /* Chống scroll trên canvas */
         }
         #instructions {
             position: absolute;
@@ -38,7 +45,7 @@
 </head>
 <body>
 
-<div id="instructions">Nhấn <b>Space</b> hoặc <b>Click</b> để chơi<br>(Bản chậm)</div>
+<div id="instructions">Nhấn <b>Space</b>, <b>Click</b> hoặc <b>Chạm</b> để chơi<br>(Bản chậm - Hỗ trợ Mobile)</div>
 <canvas id="gameCanvas" width="320" height="480"></canvas>
 
 <script>
@@ -74,18 +81,42 @@
                 score.reset();
                 state.current = state.getReady;
                 document.getElementById("instructions").style.display = "block"; // Hiện lại hướng dẫn
-                document.getElementById("instructions").innerHTML = "Nhấn <b>Space</b> để chơi lại";
+                document.getElementById("instructions").innerHTML = "Nhấn <b>Space</b> hoặc <b>Chạm</b> để chơi lại";
                 frames = 0;
                 break;
         }
     }
 
+    // Xử lý click (desktop)
     document.addEventListener("click", controlHandler);
+    
+    // Xử lý keyboard (desktop)
     document.addEventListener("keydown", function(evt) {
         if (evt.code === "Space") {
             controlHandler(evt);
         }
     });
+    
+    // Xử lý touch events (mobile)
+    canvas.addEventListener("touchstart", function(evt) {
+        evt.preventDefault(); // Chống zoom/scroll
+        controlHandler(evt);
+    }, { passive: false });
+    
+    // Chống context menu trên mobile
+    canvas.addEventListener("contextmenu", function(evt) {
+        evt.preventDefault();
+    });
+    
+    // Chống double-tap zoom trên iOS
+    let lastTouchEnd = 0;
+    document.addEventListener("touchend", function(evt) {
+        const now = Date.now();
+        if (now - lastTouchEnd <= 300) {
+            evt.preventDefault();
+        }
+        lastTouchEnd = now;
+    }, false);
 
     // --- ĐỐI TƯỢNG CHIM (BIRD) ---
     const bird = {
