@@ -125,8 +125,8 @@
         w: 20,
         h: 20,
         radius: 12,
-        gravity: 0.15,   // Tăng gravity cho mobile
-        jump: 3.2,      // Tăng jump cho mobile
+        gravity: 0.25,   // Tăng gravity cho mobile (nhanh hơn)
+        jump: 4.5,      // Tăng jump cho mobile (cao hơn)
         
         speed: 0,
         rotation: 0,
@@ -206,7 +206,7 @@
     const fg = {
         h: 112,
         x: 0,
-        dx: 2.5, // Tăng tốc độ cho mobile
+        dx: 4.5, // Tăng tốc độ cho mobile (nhanh hơn)
         
         draw: function() {
             ctx.fillStyle = "#ded895";
@@ -242,8 +242,8 @@
         position: [],
         w: 53,
         h: 400,
-        gap: 105, // Giảm gap một chút cho thử thách hơn
-        dx: 2.5,  // Tăng tốc độ cho mobile - Phải bằng fg.dx
+        gap: 125, // Tăng gap một chút cho dễ chơi với tốc độ nhanh
+        dx: 4.5,  // Tăng tốc độ cho mobile - Phải bằng fg.dx (nhanh hơn)
         maxYPos: -150,
 
         draw: function() {
@@ -274,7 +274,7 @@
             if (state.current !== state.game) return;
 
             // Thêm ống mới nhanh hơn cho mobile
-            if (frames % 90 === 0) { 
+            if (frames % 75 === 0) { 
                 this.position.push({
                     x: canvas.width,
                     y: this.maxYPos * (Math.random() + 1)
